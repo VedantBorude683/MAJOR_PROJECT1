@@ -103,10 +103,14 @@ app.use((req,res,next)=>{
 
 // })
 
+
 app.use("/listings",listingRouter);
 app.use("/listings/:id/reviews",reviewsRouter);
 app.use("/",userRouter);
 
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
 
 app.get("/listings",async(req,res)=>{
    const allListings=await Listing.find({})
@@ -131,8 +135,8 @@ app.use((err, req, res, next) => {
 });
 
   
-
-app.listen(8080,()=>{
+const PORT = process.env.PORT || 8080;
+app.listen(PORT,()=>{
     console.log("server is listening to port 8080")
 })
 
